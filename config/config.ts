@@ -65,6 +65,12 @@ export default defineConfig({
       ],
     },
     {
+      name: 'article',
+      path: '/article',
+      icon: 'book',
+      component: './ArticleTableList'
+    },
+    {
       name: 'list.table-list',
       icon: 'table',
       path: '/list',
