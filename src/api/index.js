@@ -1,23 +1,15 @@
-  
 import axios from 'axios';
 
 import { BASEURL } from './config'
 
-const token = localStorage.getItem('token');
-
 const request = axios.create({
     baseURL: BASEURL,
-    timeout: 5000
+    withCredentials: true,  
+    timeout: 5000,
 })
 
-// 设置post请求头
-request.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-
-// 添加请求拦截器
 request.interceptors.request.use(
     config => {
-        // 将 token 添加到请求头
-        token && (config.headers.Authorization = token)
         return config
     },
     error => {
@@ -25,7 +17,6 @@ request.interceptors.request.use(
     }
 )
 
-// 添加响应拦截器
 request.interceptors.response.use(
     response => {
         if (response.status === 200) {

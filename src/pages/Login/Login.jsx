@@ -1,29 +1,39 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect, Route } from 'react-router-dom';
 import { Layout, Input, Form, Button, Divider, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import axios from '@/api'
+
 import styles from './index.module.scss'
 
 const Login = props => {
-    const [loading, setLoading] = useState(false);
 
-    const handleSubmitFinish = values => {
-        console.log('Success:', values);
-            localStorage.setItem('user', JSON.stringify(values))
+    const [loading, setLoading] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false)
+    const handleSubmitFinish = async values => {
+        try {
             setLoading(true)
-            setTimeout(() => {
-                message.success('登录成功!')
-                props.history.push('/dashboard')
-            }, 2000);
+            const res = await axios.post('/api/user/login', values)
+            if (res.status === 1) {
+                setLoggedIn(true)
+            } else {
+                message.error(res.message)
+            }
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
     };
-    
+
     const handleSubmitFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
 
     return (
         <Layout className={styles.login}>
-            <div className={styles.model}>
+            <Route exact path="/login">
+                {loggedIn ? <Redirect to="/dashboard" /> : <div className={styles.model}>
                 <div className={styles.loginForm}>
                     <h3>后台管理系统</h3>
                     <Divider />
@@ -32,17 +42,15 @@ const Login = props => {
                         onFinishFailed={handleSubmitFinishFailed}
                     >
                         <Form.Item
-                            // label="Username"
-                            name="username"
-                            rules={[{ required: true, message: '请输入用户名' }]}
+                            name="email"
+                            rules={[{ required: true, message: '请输入邮箱' }]}
                         >
                             <Input
-                                placeholder='用户名'
+                                placeholder='邮箱'
                                 prefix={<UserOutlined className="site-form-item-icon" />}
                             />
                         </Form.Item>
                         <Form.Item
-                            // label="Password"
                             name="password"
                             rules={[{ required: true, message: '请输入密码' }]}
                         >
@@ -59,7 +67,10 @@ const Login = props => {
                         </Form.Item>
                     </Form>
                 </div>
-            </div>
+            </div>}
+            </Route>
+
+            
         </Layout>
     )
 }

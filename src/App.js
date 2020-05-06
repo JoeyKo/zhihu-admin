@@ -14,7 +14,7 @@ function App() {
     <div className="App">
        <Router>
           <Switch>
-              <Route path='/' exact render={() => <Redirect to='/index' />} />
+              <Route path='/' exact render={() => <Redirect to='/dashboard' />} />
               <Route path='/404' component={View404} />
               <Route path='/login' component={Login} />
 

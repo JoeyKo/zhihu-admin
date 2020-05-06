@@ -1,53 +1,63 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, Table, Button } from 'antd'
-import axios from '@/api'
+import { Layout, Table, Button, Divider } from 'antd'
 import WebBreadcrumb from '@/components/WebBreadcrumb'
-
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import axios from '@/api'
 
 const Article = () => {
-    const [list, setList] = useState([])
+  const [list, setList] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    const columns = [
-      {
-        title: '姓名',
-        dataIndex: 'title',
-      },
-      {
-        title: '年龄',
-        dataIndex: 'description',
-      },
-      {
-        title: '住址',
-        dataIndex: 'createdAt',
-      },
-      {
-        title: '操作',
-        key: 'action',
-        render: (text, record) => (
-          <span>
-            <Button type="link">编辑 {record.name}</Button>
-            <Button type="link">删除</Button>
-          </span>
-        ),
-      }
-    ];
-    useEffect(() => {
-        axios.get(`/api/article`).then(res => {
-          console.log(res)
-          setList(res.data)
-        }).catch(err => {
-            console.error(err)
-        })
-      }, [])
-    return (
-        <Layout className='index animated fadeIn'>
-            <WebBreadcrumb arr={['文章']}></WebBreadcrumb>
+  const columns = [
+    {
+      title: '标题',
+      dataIndex: 'title',
+    },
+    {
+      title: '描述',
+      dataIndex: 'description',
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createdAt',
+    },
+    {
+      title: '操作',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <Button shape="circle" icon={<EditOutlined />} size="small"></Button>
+          <Divider type="vertical" ></Divider>
+          <Button shape="circle" icon={<DeleteOutlined />} size="small" danger></Button>
+        </span>
+      ),
+    }
+  ];
 
-            <Table dataSource={list} columns={columns}>
+  async function getArticles() {
+    setLoading(true)
+    try {
+      const res = await axios.get(`/api/article`)
+      console.log(res)
+      setList(res.data)
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
+    }
+  }
 
-            </Table>
-        </Layout>
-    )
+  useEffect(() => {
+    getArticles()
+  }, [])
+
+  return (
+    <Layout>
+      <WebBreadcrumb arr={['文章']}></WebBreadcrumb>
+      <Table dataSource={list} loading={loading} columns={columns}>
+      </Table>
+    </Layout>
+  )
 }
 
 export default Article

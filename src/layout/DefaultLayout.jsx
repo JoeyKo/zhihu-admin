@@ -11,6 +11,8 @@ import AppHeader from './AppHeader.jsx'
 import AppAside from './AppAside.jsx'
 import AppFooter from './AppFooter.jsx'
 
+import styles from './index.module.scss'
+
 const { Content } = Layout
 
 const MENU_TOGGLE = 'menuToggle'
@@ -46,7 +48,7 @@ const DefaultLayout = props => {
             <AppAside menuToggle={state.menuToggle} menu={menu} />
             <Layout>
                 <AppHeader menuToggle={state.menuToggle} menuClick={menuClick} avatar={avatar} loginOut={loginOut} />
-                <Content>
+                <Content className={styles.content}>
                     <Switch>
                         {routes.map(item => {
                             return (
