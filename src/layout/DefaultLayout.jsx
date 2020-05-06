@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useReducer } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
-import { Layout, BackTop, message } from 'antd'
+import { Layout, message } from 'antd'
 
 import routes from '@/routes'
 import menus from '@/routes/menus'
@@ -62,6 +62,7 @@ const DefaultLayout = props => {
                         <Redirect to='/404' />
                     </Switch>
                 </Content>
+                <AppFooter />
             </Layout>
         </Layout>
     )

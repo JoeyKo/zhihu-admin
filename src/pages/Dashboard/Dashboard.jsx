@@ -1,10 +1,12 @@
 import React from 'react'
 import { Layout, Row, Col } from 'antd'
+import WebBreadcrumb from '@/components/WebBreadcrumb'
 
 const Dashboard = () => {
    
     return (
         <Layout className='index animated fadeIn'>
+            <WebBreadcrumb arr={[]}></WebBreadcrumb>
             <Row gutter={24} className='index-header'>
                 <Col span={6}>
                     <div className='base-style wechat'>
