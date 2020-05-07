@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message, notification } from 'antd'
 
 import { BASEURL } from './config'
 
@@ -22,25 +23,34 @@ request.interceptors.response.use(
         if (response.status === 200) {
             return Promise.resolve(response.data)
         } else {
-            return Promise.reject(response)
+            return Promise.reject(response.data)
         }
     },
     error => {
         if(error.response && error.response.status) {
             switch (error.response.status) {
                 case 401:
+                    message.warning('请登录！')
                     break
                 case 403:
                     break
                 case 404:
+                    notification['error']({
+                        message: error.response.data.error.title,
+                        description: error.response.data.error.message,
+                    });
                     break
                 case 500:
+                    notification['error']({
+                        message: error.response.data.error.title,
+                        description: error.response.data.error.message,
+                    });
                     break
                 default:
-                    console.log('其他错误信息')
+                    message.error('其他错误信息')
             }
         }
-        return Promise.reject(error)
+        return Promise.reject(error.response)
     }
 )
 

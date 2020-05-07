@@ -16,6 +16,7 @@ const Login = props => {
             const res = await axios.post('/api/user/login', values)
             if (res.status === 1) {
                 setLoggedIn(true)
+                message.success('登录成功！')
             } else {
                 message.error(res.message)
             }

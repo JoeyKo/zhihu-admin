@@ -1,18 +1,15 @@
 import React, { useState, useReducer } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
-import { Layout, message } from 'antd'
+import { Layout } from 'antd'
 
 import routes from '@/routes'
 import menus from '@/routes/menus'
-
-import WebBreadcrumb from '@/components/WebBreadcrumb'
 
 import AppHeader from './AppHeader.jsx'
 import AppAside from './AppAside.jsx'
 import AppFooter from './AppFooter.jsx'
 
 import avatar from '@/assets/images/logo.png'
-import styles from './index.module.scss'
 
 const { Content } = Layout
 
@@ -40,9 +37,7 @@ const DefaultLayout = props => {
     }
 
     const loginOut = () => {
-        localStorage.clear()
         props.history.push('/login')
-        message.success('登出成功!')
     }
     return (
         <Layout style={{ minHeight: '100vh' }}>

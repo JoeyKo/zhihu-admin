@@ -1,14 +1,18 @@
-  
+
 import React from 'react'
-import { Button } from 'antd'
 import { Link } from 'react-router-dom'
+import { Button, Result, } from 'antd'
 
-const View404 = () => (
-   <div>
-     <h1>oops!</h1>
-     <div>404 - PAGE NOT FOUND</div>
-     <div><Link to="/dashboard"><Button type="primary">Go Home</Button></Link></div>
-   </div>
-)
+const View404 = props => {
 
+  return (
+    <Result
+      status="404"
+      title="404"
+      subTitle="Sorry, the page you visited does not exist."
+      extra={<Link to="/dashboard"><Button type="primary">Back Home</Button></Link>}
+    />
+  )
+
+}
 export default View404

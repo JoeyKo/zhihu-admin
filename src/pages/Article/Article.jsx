@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Table, Button, Divider } from 'antd'
+import { Table, Button, Divider, Popconfirm, message } from 'antd'
 import PageLayout from '@/components/PageLayout'
 import axios from '@/api'
 
@@ -9,6 +9,20 @@ const Article = () => {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
 
+  const delConfirm = async id => {
+    try {
+      const res = await axios.delete(`/api/article/${id}`)
+      if (res.status === 1) {
+        setList(list.filter(item => item.id !== id))
+        message.success('已删除！');
+      } else {
+        message.error(res.message)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+ 
   const columns = [
     {
       title: '标题',
@@ -29,7 +43,15 @@ const Article = () => {
         <span>
           <Link to="/articleForm"><Button shape="circle" icon={<EditOutlined />} size="small"></Button></Link>
           <Divider type="vertical" ></Divider>
-          <Button shape="circle" icon={<DeleteOutlined />} size="small" danger></Button>
+          <Popconfirm
+            title="确定删除该项吗?"
+            onConfirm={() => delConfirm(record.id)}
+            onCancel={null}
+            okText="是"
+            cancelText="否"
+          >
+            <Button shape="circle" icon={<DeleteOutlined />} size="small" danger></Button>
+          </Popconfirm>
         </span>
       ),
     }
@@ -53,7 +75,7 @@ const Article = () => {
   }, [])
 
   return (
-    <PageLayout routes={[{path: 'article', breadcrumbName: '文章'}]} title="文章列表">
+    <PageLayout routes={[{ path: 'article', breadcrumbName: '文章' }]} title="文章列表">
       <Table dataSource={list} loading={loading} columns={columns}>
       </Table>
     </PageLayout>
