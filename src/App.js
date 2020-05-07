@@ -17,7 +17,6 @@ function App() {
               <Route path='/' exact render={() => <Redirect to='/dashboard' />} />
               <Route path='/404' component={View404} />
               <Route path='/login' component={Login} />
-
               <Route component={DefaultLayout} />
           </Switch>
       </Router>

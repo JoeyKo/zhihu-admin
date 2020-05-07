@@ -1,9 +1,12 @@
 .header {
   background-color: #fff;
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   padding: 0 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  z-index: 100;
 }
 
 .userInfo {

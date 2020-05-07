@@ -4,13 +4,14 @@ import { Layout, message } from 'antd'
 
 import routes from '@/routes'
 import menus from '@/routes/menus'
-import avatar from '@/assets/images/logo.png'
 
+import WebBreadcrumb from '@/components/WebBreadcrumb'
 
 import AppHeader from './AppHeader.jsx'
 import AppAside from './AppAside.jsx'
 import AppFooter from './AppFooter.jsx'
 
+import avatar from '@/assets/images/logo.png'
 import styles from './index.module.scss'
 
 const { Content } = Layout
@@ -48,7 +49,7 @@ const DefaultLayout = props => {
             <AppAside menuToggle={state.menuToggle} menu={menu} />
             <Layout>
                 <AppHeader menuToggle={state.menuToggle} menuClick={menuClick} avatar={avatar} loginOut={loginOut} />
-                <Content className={styles.content}>
+                <Content>
                     <Switch>
                         {routes.map(item => {
                             return (

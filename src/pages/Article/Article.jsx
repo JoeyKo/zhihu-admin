@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, Table, Button, Divider } from 'antd'
-import WebBreadcrumb from '@/components/WebBreadcrumb'
+import { Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Button, Divider } from 'antd'
+import PageLayout from '@/components/PageLayout'
 import axios from '@/api'
 
 const Article = () => {
@@ -26,7 +27,7 @@ const Article = () => {
       key: 'action',
       render: (text, record) => (
         <span>
-          <Button shape="circle" icon={<EditOutlined />} size="small"></Button>
+          <Link to="/articleForm"><Button shape="circle" icon={<EditOutlined />} size="small"></Button></Link>
           <Divider type="vertical" ></Divider>
           <Button shape="circle" icon={<DeleteOutlined />} size="small" danger></Button>
         </span>
@@ -52,11 +53,10 @@ const Article = () => {
   }, [])
 
   return (
-    <Layout>
-      <WebBreadcrumb arr={['文章']}></WebBreadcrumb>
+    <PageLayout routes={[{path: 'article', breadcrumbName: '文章'}]} title="文章列表">
       <Table dataSource={list} loading={loading} columns={columns}>
       </Table>
-    </Layout>
+    </PageLayout>
   )
 }
 
