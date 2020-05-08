@@ -6,7 +6,6 @@ import styles from './index.module.scss'
 
 const { Header } = Layout
 
-
 const AppHeader = props => {
     let {avatar, loginOut, menuToggle, menuClick } = props
     const menu = (

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
-import SideMenu from '../components/SideMenu'
+import SideMenu from '@/components/SideMenu'
 import logo from '@/assets/images/logo.png'
 
 import styles from './index.module.scss'

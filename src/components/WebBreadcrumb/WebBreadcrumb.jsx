@@ -1,19 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { PageHeader } from 'antd'
 import styles from './index.module.scss'
+
 const WebBreadcrumb = props => {
     let { routes, title, subTitle } = props
     routes = [
-        { path: 'dashboard', breadcrumbName: '首页' },
+        { path: '/dashboard', breadcrumbName: '首页' },
         ...routes
     ]
 
     return (
         <PageHeader
-        className={styles.pageHeader}
+            className={styles.pageHeader}
             title={title}
-            breadcrumb={{ routes }}
+            breadcrumb={{
+                itemRender: (route, params, routes, paths) => {
+                    if (route.path === routes[routes.length - 1].path) {
+                        return route.breadcrumbName
+                    }
+                    return <Link to={route.path}>{route.breadcrumbName}</Link>
+                }, routes
+            }}
             subTitle={subTitle}
         />
     )
@@ -22,7 +31,7 @@ const WebBreadcrumb = props => {
 WebBreadcrumb.propTypes = {
     routes: PropTypes.array.isRequired,
     title: PropTypes.string,
-    subTitle: PropTypes.string 
+    subTitle: PropTypes.string
 }
 
 WebBreadcrumb.defaultProps = {

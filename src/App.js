@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 // set moment locale
 import 'moment/locale/zh-cn'
-import moment from 'moment'
 
 import AsyncLoadable from './utils/AsyncLoadable';
 
@@ -14,9 +13,6 @@ const View404 = AsyncLoadable(() => import(/* webpackChunkName: '404' */ './page
 const Login = AsyncLoadable(() => import(/* webpackChunkName: 'login' */ './pages/Login'))
 
 function App() {
-  useEffect(() => {
-    console.log(moment.locale('zh-cn'))
-  })
   return (
     <div className="App">
       <Router>

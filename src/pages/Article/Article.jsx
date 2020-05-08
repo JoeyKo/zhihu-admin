@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Table, Button, Divider, Popconfirm, message } from 'antd'
+import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Table, Button, Divider, Card, Popconfirm, message } from 'antd'
 import PageLayout from '@/components/PageLayout'
 import axios from '@/api'
 
@@ -61,7 +61,6 @@ const Article = () => {
     }
   ];
   function handleTableChange(pagination, filters, sorter) {
-    console.log(pagination)
     setCurrent(pagination.current)
   }
 
@@ -71,7 +70,6 @@ const Article = () => {
       try {
         const res = await axios.get(`/api/article?current=${current}`)
         setList(res.data)
-        console.log(res)
         setTotal(res.count)
         setLoading(false)
       } catch (error) {
@@ -83,13 +81,15 @@ const Article = () => {
   }, [current])
 
   return (
-    <PageLayout routes={[{ path: 'article', breadcrumbName: '文章' }]} title="文章列表">
-      <Table
-        dataSource={list}
-        loading={loading}
-        columns={columns}
-        pagination={{ total, current, pageSize: 20, showTotal: (total, range) => `总共 ${total} 项` }}
-        onChange={handleTableChange} />
+    <PageLayout routes={[{ path: '/article', breadcrumbName: '文章' }]} title="文章列表">
+      <Card title={<Button type="primary" icon={<PlusOutlined />}>新建</Button>} bordered={false}>
+        <Table
+          dataSource={list}
+          loading={loading}
+          columns={columns}
+          pagination={{ total, current, pageSize: 20, showTotal: (total, range) => `总共 ${total} 项` }}
+          onChange={handleTableChange} />
+      </Card>
     </PageLayout>
   )
 }

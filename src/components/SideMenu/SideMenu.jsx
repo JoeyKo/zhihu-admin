@@ -53,13 +53,13 @@ const SideMenu = props => {
         })
     }
 
-    const renderMenuItem = ({ key, icon, title }) => (
+    const renderMenuItem = ({ key, icon, title, hide }) => (hide ? null : (
         <Menu.Item key={key}>
-            <Link to={key} replace>
+            <Link to={key}>
                 {icon}
                 <span>{title}</span>
             </Link>
-        </Menu.Item>
+        </Menu.Item>)
     )
 
     // 循环遍历数组中的子项 subs ，生成子级 menu

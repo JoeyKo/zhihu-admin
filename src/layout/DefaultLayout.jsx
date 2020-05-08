@@ -54,7 +54,8 @@ const DefaultLayout = props => {
                                     exact={item.exact}
                                     render={props =>
                                         <item.component {...props} />
-                                    }></Route>
+                                    }
+                                />
                             )
                         })}
                         <Redirect to='/404' />

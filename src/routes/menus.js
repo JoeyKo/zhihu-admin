@@ -10,8 +10,13 @@ const menus = [
   {
     key: '/article',
     title: '文章',
-    icon: <BookOutlined />
+    icon: <BookOutlined />,
   },
+  {
+    key: '/articleForm',
+    title: '文章表单',
+    hide: true
+  }
 ]
 
 export default menus;
