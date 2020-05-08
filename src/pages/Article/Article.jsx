@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Table, Button, Divider, Popconfirm, message } from 'antd'
 import PageLayout from '@/components/PageLayout'
@@ -7,6 +8,8 @@ import axios from '@/api'
 
 const Article = () => {
   const [list, setList] = useState([])
+  const [total, setTotal] = useState(0)
+  const [current, setCurrent] = useState(1)
   const [loading, setLoading] = useState(false)
 
   const delConfirm = async id => {
@@ -22,7 +25,7 @@ const Article = () => {
       console.log(err)
     }
   }
- 
+
   const columns = [
     {
       title: '标题',
@@ -35,6 +38,7 @@ const Article = () => {
     {
       title: '创建时间',
       dataIndex: 'createdAt',
+      render: (text, record) => moment(text).format('LLL')
     },
     {
       title: '操作',
@@ -56,28 +60,36 @@ const Article = () => {
       ),
     }
   ];
-
-  async function getArticles() {
-    setLoading(true)
-    try {
-      const res = await axios.get(`/api/article`)
-      console.log(res)
-      setList(res.data)
-      setLoading(false)
-    } catch (error) {
-      console.error(error)
-      setLoading(false)
-    }
+  function handleTableChange(pagination, filters, sorter) {
+    console.log(pagination)
+    setCurrent(pagination.current)
   }
 
   useEffect(() => {
+    async function getArticles() {
+      setLoading(true)
+      try {
+        const res = await axios.get(`/api/article?current=${current}`)
+        setList(res.data)
+        console.log(res)
+        setTotal(res.count)
+        setLoading(false)
+      } catch (error) {
+        console.error(error)
+        setLoading(false)
+      }
+    }
     getArticles()
-  }, [])
+  }, [current])
 
   return (
     <PageLayout routes={[{ path: 'article', breadcrumbName: '文章' }]} title="文章列表">
-      <Table dataSource={list} loading={loading} columns={columns}>
-      </Table>
+      <Table
+        dataSource={list}
+        loading={loading}
+        columns={columns}
+        pagination={{ total, current, pageSize: 20, showTotal: (total, range) => `总共 ${total} 项` }}
+        onChange={handleTableChange} />
     </PageLayout>
   )
 }

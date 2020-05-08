@@ -9,7 +9,6 @@ const WebBreadcrumb = props => {
         ...routes
     ]
 
-    console.log(routes)
     return (
         <PageHeader
         className={styles.pageHeader}
