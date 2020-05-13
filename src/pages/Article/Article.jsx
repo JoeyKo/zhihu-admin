@@ -41,11 +41,16 @@ const Article = () => {
       render: (text, record) => moment(text).format('LLL')
     },
     {
+      title: '更新时间',
+      dataIndex: 'updatedAt',
+      render: (text, record) => moment(text).format('LLL')
+    },
+    {
       title: '操作',
       key: 'action',
       render: (text, record) => (
         <span>
-          <Link to="/articleForm"><Button shape="circle" icon={<EditOutlined />} size="small"></Button></Link>
+          <Link to={`/articleForm?id=${record.id}`}><Button shape="circle" icon={<EditOutlined />} size="small"></Button></Link>
           <Divider type="vertical" ></Divider>
           <Popconfirm
             title="确定删除该项吗?"
@@ -82,7 +87,7 @@ const Article = () => {
 
   return (
     <PageLayout routes={[{ path: '/article', breadcrumbName: '文章' }]} title="文章列表">
-      <Card title={<Button type="primary" icon={<PlusOutlined />}>新建</Button>} bordered={false}>
+      <Card title={<Link to={`/articleForm`}><Button type="primary" icon={<PlusOutlined />}>新建</Button></Link>} bordered={false}>
         <Table
           dataSource={list}
           loading={loading}
