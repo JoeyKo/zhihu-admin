@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeOutlined, BookOutlined } from '@ant-design/icons';
+import { HomeOutlined, BookOutlined, EditOutlined } from '@ant-design/icons';
 
 const menus = [
   {
@@ -16,6 +16,11 @@ const menus = [
     key: '/articleForm',
     title: '文章表单',
     hide: true
+  },
+  {
+    key: '/editor',
+    title: '文本编辑器',
+    icon: <EditOutlined />,
   }
 ]
 
