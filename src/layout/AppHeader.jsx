@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 import { Menu, Dropdown, Layout, Avatar } from 'antd';
 import { LogoutOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import axios from '@/api'
@@ -48,7 +49,7 @@ const AppHeader = props => {
                         </Dropdown>
                     </div>
                     : 
-                    <div>请登录</div>}
+                    <Link to="/login">请登录</Link>}
             </div>
         </Header>
     )
