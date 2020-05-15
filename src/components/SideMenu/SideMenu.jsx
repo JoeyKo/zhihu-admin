@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom'
+import menus from '@/routes/menus'
 
 // 处理 pathname
 const getOpenKeys = (string, collapsed) => {
@@ -27,11 +28,14 @@ const SideMenu = props => {
     // 页面刷新的时候可以定位到 menu 显示
     useEffect(() => {
         let { pathname } = props.location
+        const matchedMenu = menus.find(menu => {
+            return menu.key === pathname && menu.hide
+        })
         setstate(prevState => {
             return {
                 ...prevState,
-                selectedKeys: [pathname],
-                openKeys: getOpenKeys(pathname)
+                selectedKeys: matchedMenu ? [matchedMenu.menu] : [pathname],
+                openKeys: getOpenKeys(matchedMenu ? matchedMenu.menu : pathname)
             }
         })
     }, [props]);
