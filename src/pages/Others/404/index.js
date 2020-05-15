@@ -1,4 +1,4 @@
   
-import View404 from './404.jsx'
+import View404 from './404'
 
 export default View404

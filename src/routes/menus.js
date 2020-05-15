@@ -22,6 +22,7 @@ const menus = [
     key: '/editor',
     title: '文本编辑器',
     icon: <EditOutlined />,
+    roles: ['admin']
   },
   {
     title: '导航',

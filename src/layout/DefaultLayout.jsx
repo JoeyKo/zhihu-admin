@@ -24,19 +24,32 @@ const reducer = (state, action) => {
     }
 }
 
-const DefaultLayout = props => {
-    const [menu] = useState(prevState => {
+const getMenu = menu => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    const role = (user && user.role) ||  'guest'
+    return menu.filter(res => !res.roles || res.roles.indexOf(role) !== -1)
+}
 
-        return menus
+const DefaultLayout = props => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    const [menu] = useState(prevState => {
+        if (!localStorage.getItem('user')) {
+            props.history.push('/login')
+            return []
+        } else {
+            return getMenu(menus)
+        }
     })
 
     const [state, dispatch] = useReducer(reducer, { menuToggle: false })
+    const role = (user && user.role) || 'guest'
 
     const menuClick = () => {
         dispatch({ type: 'menuToggle' })
     }
 
     const loginOut = () => {
+        localStorage.removeItem('user')
         props.history.push('/login')
     }
     return (
@@ -53,7 +66,12 @@ const DefaultLayout = props => {
                                     path={item.path}
                                     exact={item.exact}
                                     render={props =>
-                                        <item.component {...props} />
+                                        !item.roles || item.roles.indexOf(role) !== -1 ?
+                                            (
+                                                <item.component {...props} />
+                                            ) : (
+                                                <Redirect to='/403' {...props} />
+                                            )
                                     }
                                 />
                             )

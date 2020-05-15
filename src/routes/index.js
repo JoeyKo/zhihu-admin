@@ -14,7 +14,7 @@ const routes = [
   { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
   { path: '/article', exact: true, name: 'Article', component: Article },
   { path: '/articleForm', exact: true, name: 'ArticleForm', component: ArticleForm },
-  { path: '/editor', exact: true, name: 'Editor', component: Editor },
+  { path: '/editor', exact: true, name: 'Editor', component: Editor, roles: ['admin'] },
   { path: '/nav/steps', exact: true, name: 'Step', component: Step },
 ]
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
-import { Menu, Dropdown, Layout, Avatar } from 'antd';
+import { Menu, Dropdown, Layout, Avatar, Tag } from 'antd';
 import { LogoutOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import axios from '@/api'
 import styles from './index.module.scss'
@@ -40,14 +40,13 @@ const AppHeader = props => {
             </div>
             <div className={styles.right}>
                 {profile ?
-                    <div>
-                        <Dropdown overlay={menu}>
-                            <div className={styles.userInfo}>
-                                <Avatar src={avatar} alt='avatar' className={styles.userLogo} />
-                                <span>{profile.username}</span>
-                            </div>
-                        </Dropdown>
-                    </div>
+                    <Dropdown overlay={menu}>
+                        <div className={styles.userInfo}>
+                            <Tag color="#f50">{profile.role}</Tag>
+                            <Avatar src={avatar} alt='avatar' className={styles.userLogo} />
+                            <span>{profile.username}</span>
+                        </div>
+                    </Dropdown>
                     : 
                     <Link to="/login">请登录</Link>}
             </div>

@@ -16,6 +16,7 @@ const Login = props => {
             const res = await axios.post('/api/user/login', values)
             if (res.status === 1) {
                 setLoggedIn(true)
+                localStorage.setItem('user', JSON.stringify(res.profile || {}))
                 message.success('登录成功！')
             } else {
                 message.error(res.message)
@@ -35,43 +36,41 @@ const Login = props => {
         <Layout className={styles.login}>
             <Route exact path="/login">
                 {loggedIn ? <Redirect to="/dashboard" /> : <div className={styles.model}>
-                <div className={styles.loginForm}>
-                    <h3>后台管理系统</h3>
-                    <Divider />
-                    <Form
-                        onFinish={handleSubmitFinish}
-                        onFinishFailed={handleSubmitFinishFailed}
-                    >
-                        <Form.Item
-                            name="email"
-                            rules={[{ required: true, message: '请输入邮箱' }]}
+                    <div className={styles.loginForm}>
+                        <h3>后台管理系统</h3>
+                        <Divider />
+                        <Form
+                            onFinish={handleSubmitFinish}
+                            onFinishFailed={handleSubmitFinishFailed}
                         >
-                            <Input
-                                placeholder='邮箱'
-                                prefix={<UserOutlined className="site-form-item-icon" />}
-                            />
-                        </Form.Item>
-                        <Form.Item
-                            name="password"
-                            rules={[{ required: true, message: '请输入密码' }]}
-                        >
-                            <Input.Password
-                                type="password"
-                                placeholder="密码"
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                            />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type='primary' htmlType='submit' className={styles.loginFormBtn} loading={loading}>
-                                登录
+                            <Form.Item
+                                name="email"
+                                rules={[{ required: true, message: '请输入邮箱' }]}
+                            >
+                                <Input
+                                    placeholder='邮箱'
+                                    prefix={<UserOutlined className="site-form-item-icon" />}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[{ required: true, message: '请输入密码' }]}
+                            >
+                                <Input.Password
+                                    type="password"
+                                    placeholder="密码"
+                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type='primary' htmlType='submit' className={styles.loginFormBtn} loading={loading}>
+                                    登录
                             </Button>
-                        </Form.Item>
-                    </Form>
-                </div>
-            </div>}
+                            </Form.Item>
+                        </Form>
+                    </div>
+                </div>}
             </Route>
-
-            
         </Layout>
     )
 }
