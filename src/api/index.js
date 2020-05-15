@@ -5,7 +5,6 @@ import { BASEURL } from './config'
 
 const request = axios.create({
     baseURL: BASEURL,
-    withCredentials: true,  
     timeout: 5000,
 })
 
