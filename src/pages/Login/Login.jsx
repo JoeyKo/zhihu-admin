@@ -15,6 +15,7 @@ const Login = props => {
             const res = await axios.post('/api/user/login', values)
             if (res.status === 1) {
                 setLoggedIn(true)
+                localStorage.setItem('token', res.token)
                 localStorage.setItem('user', JSON.stringify(res.profile || {}))
                 message.success('登录成功！')
             } else {

@@ -49,6 +49,7 @@ const DefaultLayout = props => {
     }
 
     const loginOut = () => {
+        localStorage.removeItem('token')
         localStorage.removeItem('user')
         props.history.push('/login')
     }

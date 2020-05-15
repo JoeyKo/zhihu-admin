@@ -14,8 +14,12 @@ const AppHeader = props => {
 
     useEffect(() => {
         const getProfile = async () => {
-            const res = await axios.get('/api/user/profile')
-            setProfile(res.profile)
+            try {
+                const res = await axios.get('/api/user/profile')
+                setProfile(res.profile)
+            } catch (err) {
+                console.log(err)
+            }
         }
         getProfile()
     }, [])
