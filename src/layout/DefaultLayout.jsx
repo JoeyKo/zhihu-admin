@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { Layout } from 'antd'
 
@@ -9,7 +9,7 @@ import AppHeader from './AppHeader.jsx'
 import AppAside from './AppAside.jsx'
 import AppFooter from './AppFooter.jsx'
 
-import avatar from '@/assets/images/logo.png'
+import axios from '@/api'
 
 const { Content } = Layout
 
@@ -42,6 +42,19 @@ const DefaultLayout = props => {
     })
 
     const [state, dispatch] = useReducer(reducer, { menuToggle: false })
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        const getProfile = async () => {
+            try {
+                const res = await axios.get('/api/user/profile')
+                setProfile(res.profile)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getProfile()
+    }, [])
     const role = (user && user.role) || 'guest'
 
     const menuClick = () => {
@@ -57,7 +70,7 @@ const DefaultLayout = props => {
         <Layout style={{ minHeight: '100vh' }}>
             <AppAside menuToggle={state.menuToggle} menu={menu} />
             <Layout>
-                <AppHeader menuToggle={state.menuToggle} menuClick={menuClick} avatar={avatar} loginOut={loginOut} />
+                <AppHeader menuToggle={state.menuToggle} menuClick={menuClick} profile={profile} loginOut={loginOut} />
                 <Content>
                     <Switch>
                         {routes.map(item => {

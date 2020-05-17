@@ -3,6 +3,10 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 // set moment locale
 import 'moment/locale/zh-cn'
 
+// antd locale
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/es/locale/zh_CN';
+
 import AsyncLoadable from './utils/AsyncLoadable';
 
 import './App.css';
@@ -15,16 +19,18 @@ const Login = AsyncLoadable(() => import(/* webpackChunkName: 'login' */ './page
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path='/' exact render={() => <Redirect to='/dashboard' />} />
-          <Route path='/404' component={View404} />
-          <Route path='/403' component={View403} />
-          <Route path='/login' component={Login} />
-          <Route component={DefaultLayout} />
-        </Switch>
-      </Router>
+    <div className="app">
+      <ConfigProvider locale={zhCN}>
+        <Router>
+          <Switch>
+            <Route path='/' exact render={() => <Redirect to='/dashboard' />} />
+            <Route path='/404' component={View404} />
+            <Route path='/403' component={View403} />
+            <Route path='/login' component={Login} />
+            <Route component={DefaultLayout} />
+          </Switch>
+        </Router>
+      </ConfigProvider>
     </div>
   );
 }

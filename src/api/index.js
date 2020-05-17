@@ -3,8 +3,6 @@ import { message, notification } from 'antd'
 
 import { BASEURL } from './config'
 
-const token = localStorage.getItem('token');
-
 const request = axios.create({
     baseURL: BASEURL, 
     timeout: 5000,
@@ -12,7 +10,7 @@ const request = axios.create({
 
 request.interceptors.request.use(
     config => {
-        token && (config.headers.Authorization = token)
+        config.headers.Authorization = localStorage.getItem('token')
         return config
     },
     error => {

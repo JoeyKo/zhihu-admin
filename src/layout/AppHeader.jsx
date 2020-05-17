@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Menu, Dropdown, Layout, Avatar, Tag } from 'antd';
-import { LogoutOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import axios from '@/api'
+import { SettingOutlined, LogoutOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { BASEURL } from '@/api/config'
+
 import styles from './index.module.scss'
 
 const { Header } = Layout
 
 const AppHeader = props => {
-    const { avatar, loginOut, menuToggle, menuClick } = props
-    const [profile, setProfile] = useState(null);
-
-    useEffect(() => {
-        const getProfile = async () => {
-            try {
-                const res = await axios.get('/api/user/profile')
-                setProfile(res.profile)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        getProfile()
-    }, [])
+    const { profile, loginOut, menuToggle, menuClick } = props
+    const goProfileSettings = () => {
+        props.history.push('/profile-settings')
+    }
 
     const menu = (
         <Menu>
+            <Menu.Item>
+                <span onClick={goProfileSettings}>
+                    <SettingOutlined /> 个人设置
+                </span>
+            </Menu.Item>
+            <Menu.Divider />
             <Menu.Item>
                 <span onClick={loginOut}>
                     <LogoutOutlined /> 退出登录
@@ -47,8 +44,8 @@ const AppHeader = props => {
                     <Dropdown overlay={menu}>
                         <div className={styles.userInfo}>
                             <Tag color="#f50">{profile.role}</Tag>
-                            <Avatar src={avatar} alt='avatar' className={styles.userLogo} />
-                            <span>{profile.username}</span>
+                            <Avatar src={BASEURL + (profile.avatar && profile.avatar.path)} alt='avatar' className={styles.userLogo} />
+                            <span>{profile.username || profile.email}</span>
                         </div>
                     </Dropdown>
                     : 
@@ -65,4 +62,4 @@ AppHeader.propTypes = {
     loginOut: PropTypes.func
 }
 
-export default AppHeader
+export default withRouter(AppHeader)
