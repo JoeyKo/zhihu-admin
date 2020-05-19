@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { Card, Form, Input, DatePicker, Radio, Button, Upload, message } from 'antd'
 import PageLayout from '@/components/PageLayout'
 import { BASEURL } from '@/api/config'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import axios from '@/api'
 
 const { TextArea } = Input
 
@@ -35,21 +36,50 @@ function disabledDate(current) {
 }
 
 const ProfileSettings = () => {
+  const [uploadLoading, setUploadLoading] = useState(false)
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    const getProfile = async id => {
+      try {
+        const res = await axios.get('/api/user/profile')
+        if (res.status === 1) {
+          form.setFieldsValue({
+            ...res.profile,
+            birthday: res.profile.birthday ? moment(res.profile.birthday) : null
+          })
+          setImageUrl(res.profile.avatar ? BASEURL + res.profile.avatar.path : '')  
+        } else {
+          message.error(res.message)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getProfile()
+  }, [form])
+
   const onFinish = async values => {
     try {
-
+      setLoading(true)
+      const res = await axios.put('/api/user/profile', values)
+      setLoading(false)
+      if (res.status === 1) {
+        message.success('提交成功！')
+      } else {
+        message.error(res.message)
+      }
     } catch (err) {
+      setLoading(false)
       console.log(err)
     }
   };
 
   const handleChange = info => {
     if (info.file.status === 'uploading') {
-      setLoading(true);
+      setUploadLoading(true);
       return;
     }
     if (info.file.status === 'done') {
@@ -62,7 +92,7 @@ const ProfileSettings = () => {
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      {uploadLoading ? <LoadingOutlined /> : <PlusOutlined />}
       <div className="ant-upload-text">上传头像</div>
     </div>
   );
@@ -84,14 +114,14 @@ const ProfileSettings = () => {
               {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
             </Upload>
           </Form.Item>
+          <Form.Item name="username" label="用户名">
+            <Input />
+          </Form.Item>
           <Form.Item name="gender" label="性别">
             <Radio.Group>
               <Radio value={0}>女</Radio>
               <Radio value={1}>男</Radio>
             </Radio.Group>
-          </Form.Item>
-          <Form.Item name="username" label="昵称">
-            <Input />
           </Form.Item>
           <Form.Item name="birthday" label="出生日期">
             <DatePicker disabledDate={disabledDate} />
@@ -100,7 +130,7 @@ const ProfileSettings = () => {
             <TextArea rows={3} />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button type="primary" htmlType="submit">
+            <Button loading={loading} type="primary" htmlType="submit">
               提交
           </Button>
           </Form.Item>

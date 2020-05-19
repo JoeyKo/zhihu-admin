@@ -19,7 +19,7 @@ const Login = AsyncLoadable(() => import(/* webpackChunkName: 'login' */ './page
 
 function App() {
   return (
-    <div className="app">
+    <div className="App">
       <ConfigProvider locale={zhCN}>
         <Router>
           <Switch>
