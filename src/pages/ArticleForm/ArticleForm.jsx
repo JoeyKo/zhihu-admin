@@ -10,7 +10,7 @@ const layout = {
 };
 
 // breadcrumb routes
-const routes = [{ path: '/article', breadcrumbName: '文章' }, { path: '/articleForm', breadcrumbName: '表单' }]
+const routes = [{ path: '/article', breadcrumbName: '文章' }, { path: '/articleForm', breadcrumbName: '文章表单' }]
 
 const ArticleForm = props => {
   const id = props.location.search.split('id=')[1]

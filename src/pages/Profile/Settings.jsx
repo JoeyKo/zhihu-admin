@@ -3,30 +3,13 @@ import moment from 'moment'
 import { Menu, Card, Form, Input, DatePicker, Radio, Button, Upload, message, Avatar, Row, Col } from 'antd'
 import PageLayout from '@/components/PageLayout'
 import { BASEURL } from '@/api/config'
-import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
+import { UploadOutlined } from '@ant-design/icons'
 import axios from '@/api'
+import { getBase64, beforeUpload } from '@/utils'
 
 import styles from './index.module.scss'
 
 const { TextArea } = Input
-
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-}
 
 function disabledDate(current) {
   return current && current > moment().endOf('day');

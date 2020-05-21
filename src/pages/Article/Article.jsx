@@ -10,6 +10,7 @@ const Article = () => {
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
   const [current, setCurrent] = useState(1)
+  const [sorter, setSorter] = useState('')
   const [loading, setLoading] = useState(false)
 
   const delConfirm = async id => {
@@ -38,11 +39,13 @@ const Article = () => {
     {
       title: '创建时间',
       dataIndex: 'createdAt',
+      sorter: true,
       render: (text, record) => moment(text).format('LLL')
     },
     {
       title: '更新时间',
       dataIndex: 'updatedAt',
+      sorter: true,
       render: (text, record) => moment(text).format('LLL')
     },
     {
@@ -67,15 +70,20 @@ const Article = () => {
   ];
   function handleTableChange(pagination, filters, sorter) {
     setCurrent(pagination.current)
+    if (sorter.order) setSorter(`${sorter.field}_${sorter.order.replace('end', '').toUpperCase()}`)
   }
 
   useEffect(() => {
     async function getArticles() {
       setLoading(true)
       try {
-        const res = await axios.get(`/api/article?current=${current}`)
-        setList(res.data)
-        setTotal(res.count)
+        const res = await axios.get(`/api/article?current=${current}&sorter=${sorter}`)
+        if (res.status === 1) {
+          setList(res.data)
+          setTotal(res.count)
+        } else {
+          message.error(res.message)
+        }
         setLoading(false)
       } catch (error) {
         console.error(error)
@@ -83,7 +91,7 @@ const Article = () => {
       }
     }
     getArticles()
-  }, [current])
+  }, [current, sorter])
 
   return (
     <PageLayout routes={[{ path: '/article', breadcrumbName: '文章' }]} title="文章列表">

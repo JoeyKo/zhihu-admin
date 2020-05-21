@@ -19,6 +19,17 @@ const menus = [
     hide: true
   },
   {
+    key: '/store',
+    title: '店铺',
+    icon: <BookOutlined />,
+  },
+  {
+    key: '/storeForm',
+    menu: '/store',
+    title: '店铺表单',
+    hide: true
+  },
+  {
     key: '/editor',
     title: '文本编辑器',
     icon: <EditOutlined />,
