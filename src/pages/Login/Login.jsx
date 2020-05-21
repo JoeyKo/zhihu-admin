@@ -48,7 +48,7 @@ const Login = props => {
                                 rules={[{ required: true, message: '请输入邮箱' }]}
                             >
                                 <Input
-                                    placeholder='邮箱'
+                                    placeholder='guest@test.com'
                                     prefix={<UserOutlined className="site-form-item-icon" />}
                                 />
                             </Form.Item>
@@ -58,7 +58,7 @@ const Login = props => {
                             >
                                 <Input.Password
                                     type="password"
-                                    placeholder="密码"
+                                    placeholder="123456"
                                     prefix={<LockOutlined className="site-form-item-icon" />}
                                 />
                             </Form.Item>
