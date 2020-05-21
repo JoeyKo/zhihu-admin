@@ -1,0 +1,15 @@
+.avatarWrapper {
+  margin-left: 120px;
+}
+
+.uploadWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.avatar {
+  width: 144px;
+  height: 144px;
+  margin-bottom: 12px;
+}
