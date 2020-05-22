@@ -45,7 +45,7 @@ const StoreForm = props => {
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       setUploadLoading(false)
-      form.setFieldsValue({ coverImage: info.file})
+      form.setFieldsValue({ coverImage: info.file })
 
       getBase64(info.file.originFileObj, imageUrl =>
         setCoverImageUrl(imageUrl),
@@ -55,10 +55,9 @@ const StoreForm = props => {
 
   const onFinish = async values => {
     try {
-      console.log(values)
       const newValues = {
         ...values,
-        coverImage: id ? values.coverImage : values.coverImage.response.images[0]
+        coverImage: values.coverImage.response ? values.coverImage.response.images[0] : null
       }
       const res = (id ? await axios.put(`/api/store/${id}`, newValues) : await axios.post(`/api/store`, newValues))
       if (res.status === 1) {

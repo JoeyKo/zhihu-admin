@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeOutlined, BookOutlined, EditOutlined, CompassOutlined } from '@ant-design/icons';
+import { HomeOutlined, BookOutlined, EditOutlined, CompassOutlined, ShopOutlined } from '@ant-design/icons';
 
 const menus = [
   {
@@ -21,7 +21,7 @@ const menus = [
   {
     key: '/store',
     title: '店铺',
-    icon: <BookOutlined />,
+    icon: <ShopOutlined />,
   },
   {
     key: '/storeForm',
