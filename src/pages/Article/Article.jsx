@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Button, Divider, Card, Popconfirm, message } from 'antd'
 import PageLayout from '@/components/PageLayout'
+import TableToolbar from '@/components/TableToolbar'
+import FullScreen from '@/components/FullScreen'
 import axios from '@/api'
 
 const Article = () => {
@@ -12,6 +14,7 @@ const Article = () => {
   const [current, setCurrent] = useState(1)
   const [sorter, setSorter] = useState('')
   const [loading, setLoading] = useState(false)
+  const [isFull, setIsFull] = useState(false)
 
   const delConfirm = async id => {
     try {
@@ -68,41 +71,49 @@ const Article = () => {
       ),
     }
   ];
+
   function handleTableChange(pagination, filters, sorter) {
     setCurrent(pagination.current)
     if (sorter.order) setSorter(`${sorter.field}_${sorter.order.replace('end', '').toUpperCase()}`)
   }
-
-  useEffect(() => {
-    async function getArticles() {
-      setLoading(true)
-      try {
-        const res = await axios.get(`/api/article?current=${current}&sorter=${sorter}`)
-        if (res.status === 1) {
-          setList(res.data)
-          setTotal(res.count)
-        } else {
-          message.error(res.message)
-        }
-        setLoading(false)
-      } catch (error) {
-        console.error(error)
-        setLoading(false)
+  
+  const getArticles = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await axios.get(`/api/article?current=${current}&sorter=${sorter}`)
+      if (res.status === 1) {
+        setList(res.data)
+        setTotal(res.count)
+      } else {
+        message.error(res.message)
       }
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
     }
-    getArticles()
   }, [current, sorter])
+  
+  useEffect(() => {
+    getArticles()
+  }, [getArticles])
 
   return (
     <PageLayout routes={[{ path: '/article', breadcrumbName: '文章' }]} title="文章列表">
-      <Card title={<Link to={`/articleForm`}><Button type="primary" icon={<PlusOutlined />}>新建</Button></Link>} bordered={false}>
-        <Table
-          dataSource={list}
-          loading={loading}
-          columns={columns}
-          pagination={{ total, current, pageSize: 20, showTotal: (total, range) => `总共 ${total} 项` }}
-          onChange={handleTableChange} />
-      </Card>
+      <FullScreen enabled={isFull} onClose={() => setIsFull(false)} style={{ backgroundColor: '#fff' }}>
+        <Card
+          title={<Link to={`/articleForm`}><Button type="primary" icon={<PlusOutlined />}>新建</Button></Link>}
+          extra={<TableToolbar onReload={() => getArticles()} onFullScreen={() => setIsFull(!isFull)} />}
+          bordered={false}
+        >
+          <Table
+            dataSource={list}
+            loading={loading}
+            columns={columns}
+            pagination={{ total, current, pageSize: 20, showTotal: (total, range) => `总共 ${total} 项` }}
+            onChange={handleTableChange} />
+        </Card>
+      </FullScreen>
     </PageLayout>
   )
 }
