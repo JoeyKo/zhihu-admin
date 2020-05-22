@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Button, Divider, Card, Popconfirm, message } from 'antd'
+import FullScreen from "react-full-screen";
 import PageLayout from '@/components/PageLayout'
 import TableToolbar from '@/components/TableToolbar'
-import FullScreen from '@/components/FullScreen'
 import axios from '@/api'
+
 
 const Article = () => {
   const [list, setList] = useState([])
@@ -93,14 +94,14 @@ const Article = () => {
       setLoading(false)
     }
   }, [current, sorter])
-  
+
   useEffect(() => {
     getArticles()
   }, [getArticles])
 
   return (
     <PageLayout routes={[{ path: '/article', breadcrumbName: '文章' }]} title="文章列表">
-      <FullScreen enabled={isFull} onClose={() => setIsFull(false)} style={{ backgroundColor: '#fff' }}>
+      <FullScreen enabled={isFull}>
         <Card
           title={<Link to={`/articleForm`}><Button type="primary" icon={<PlusOutlined />}>新建</Button></Link>}
           extra={<TableToolbar onReload={() => getArticles()} onFullScreen={() => setIsFull(!isFull)} />}

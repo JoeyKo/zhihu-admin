@@ -2,6 +2,12 @@
   font-size: 1.4rem;
 }
 
+.fullscreen-enabled {
+  min-height: 100vh;
+  overflow: auto;
+  background: #fff;
+}
+
 @media screen and (max-width: 960px) {
     .app {
         font-size: 1.4rem;
