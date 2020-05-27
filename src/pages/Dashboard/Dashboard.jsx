@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, Row, Col } from 'antd'
+import { Layout, Card, Row, Col, Divider } from 'antd'
 import { Chart, Line, Point, Interval, Tooltip } from 'bizcharts';
 import styles from './index.module.scss'
 // 数据源
@@ -150,16 +150,45 @@ const Dashboard = () => {
         <Layout className={styles.container}>
             <Row gutter={24}>
                 <Col span={6} className={styles.cardWrapper}>
-                    <Card>1</Card>
+                    <Card bodyStyle={{ padding: '20px 24px 8px' }}>
+                        <h2>总销售额</h2>
+                        <div className={styles.total}>¥126,560</div>
+                        <Divider className={styles.divider} />
+                        <div className={styles.footer}>
+                            日销售额 ¥12,234
+                        </div>
+                    </Card>
                 </Col>
                 <Col span={6} className={styles.cardWrapper}>
-                    <Card>2</Card>
+                    <Card bodyStyle={{ padding: '20px 24px 8px' }}>
+                        <h2>访问量</h2>
+                        <div className={styles.total}>8,846</div>
+                        <Divider className={styles.divider} />
+                        <div className={styles.footer}>
+                            日访问量 1,234
+                        </div>
+                    </Card>
                 </Col>
                 <Col span={6} className={styles.cardWrapper}>
-                    <Card>3</Card>
+                    <Card bodyStyle={{ padding: '20px 24px 8px' }}>
+                        <h2>支付笔数</h2>
+                        <div className={styles.total}>6,560</div>
+                        <Divider className={styles.divider} />
+                        <div className={styles.footer}>
+                            转化率 60%
+                        </div>
+                    </Card>
                 </Col>
                 <Col span={6} className={styles.cardWrapper}>
-                    <Card>4</Card>
+                    <Card bodyStyle={{ padding: '20px 24px 8px' }}>
+                        <h2>运营活动效果</h2>
+                        <div className={styles.total}>78%</div>
+                        <Divider className={styles.divider} />
+                        <div className={styles.footer}>
+                            <span>周同比 12% </span>
+                            <span>日同比 11%</span>
+                        </div>
+                    </Card>
                 </Col>
             </Row>
             <Card>
