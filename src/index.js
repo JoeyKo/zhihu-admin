@@ -4,7 +4,7 @@ import App from './App';
 import * as Sentry from '@sentry/browser';
 import * as serviceWorker from './serviceWorker';
 
-Sentry.init({dsn: "https://24075f6d4f6c4b92b660ccf641ea087a@o172110.ingest.sentry.io/5261161"});
+process.env.NODE_ENV !== 'development' && Sentry.init({dsn: "https://24075f6d4f6c4b92b660ccf641ea087a@o172110.ingest.sentry.io/5261161"});
 
 ReactDOM.render(
   <React.StrictMode>
