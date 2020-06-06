@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Form, Input, Card, Button, message } from 'antd';
-
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/components/PageLayout'
 import axios from '@/api'
 
@@ -9,10 +9,10 @@ const layout = {
   wrapperCol: { span: 10 },
 };
 
-// breadcrumb routes
-const routes = [{ path: '/article', breadcrumbName: '文章' }, { path: '/articleForm', breadcrumbName: '文章表单' }]
+
 
 const ArticleForm = props => {
+  const { t } = useTranslation()
   const id = props.location.search.split('id=')[1]
   const [form] = Form.useForm();
 
@@ -45,8 +45,12 @@ const ArticleForm = props => {
       console.log(err)
     }
   };
+
+  // breadcrumb routes
+  const routes = [{ path: '/article', breadcrumbName: t('article') }, { path: '/articleForm', breadcrumbName: t('articleForm') }]
+
   return (
-    <PageLayout routes={routes} title="文章表单">
+    <PageLayout routes={routes} title={t('articleForm')}>
       <Card>
         <Form {...layout} form={form} onFinish={onFinish}>
           <Form.Item name="title" label="标题" rules={[{ required: true, message: '请输入标题' }]}>

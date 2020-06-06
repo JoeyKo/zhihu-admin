@@ -35,6 +35,16 @@
   height: 30px;
 }
 
+.profile {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.localeBtn {
+  margin-left: 10px;
+}
+
 .footer {
   text-align: center;
 }

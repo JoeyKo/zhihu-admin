@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Input, Card, Button, message, Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import PageLayout from '@/components/PageLayout'
+import { useTranslation } from 'react-i18next'
 import axios from '@/api'
 import { BASEURL } from '@/api/config'
 import { getBase64, beforeUpload } from '@/utils'
@@ -11,14 +12,12 @@ const layout = {
   wrapperCol: { span: 10 },
 };
 
-// breadcrumb routes
-const routes = [{ path: '/store', breadcrumbName: '店铺' }, { path: '/storeForm', breadcrumbName: '店铺表单' }]
-
 const StoreForm = props => {
   const id = props.location.search.split('id=')[1]
   const [uploadLoading, setUploadLoading] = useState(false)
   const [coverImageUrl, setCoverImageUrl] = useState('')
   const [form] = Form.useForm();
+  const { t } = useTranslation()
 
   useEffect(() => {
     const getStore = async id => {
@@ -78,8 +77,12 @@ const StoreForm = props => {
     </div>
   );
 
+
+  // breadcrumb routes
+  const routes = [{ path: '/store', breadcrumbName: t('store') }, { path: '/storeForm', breadcrumbName: t('storeForm') }]
+
   return (
-    <PageLayout routes={routes} title="店铺表单">
+    <PageLayout routes={routes} title={t('storeForm')}>
       <Card>
         <Form {...layout} form={form} onFinish={onFinish}>
           <Form.Item name="name" label="店名" rules={[{ required: true, message: '请输入店名' }]}>

@@ -7,9 +7,10 @@ import FullScreen from "react-full-screen";
 import PageLayout from '@/components/PageLayout'
 import TableToolbar from '@/components/TableToolbar'
 import axios from '@/api'
-
+import { useTranslation } from 'react-i18next'
 
 const Article = () => {
+  const { t } = useTranslation()
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
   const [current, setCurrent] = useState(1)
@@ -100,7 +101,7 @@ const Article = () => {
   }, [getArticles])
 
   return (
-    <PageLayout routes={[{ path: '/article', breadcrumbName: '文章' }]} title="文章列表">
+    <PageLayout routes={[{ path: '/article', breadcrumbName: t('article') }]} title={t('articleList')}>
       <FullScreen enabled={isFull}>
         <Card
           title={<Link to={`/articleForm`}><Button type="primary" icon={<PlusOutlined />}>新建</Button></Link>}

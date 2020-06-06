@@ -4,10 +4,12 @@ import moment from 'moment'
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Button, Divider, Card, Popconfirm, message, Avatar } from 'antd'
 import PageLayout from '@/components/PageLayout'
+import { useTranslation } from 'react-i18next'
 import axios from '@/api'
 import { BASEURL } from '@/api/config'
 
 const Store = () => {
+  const { t } = useTranslation()
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
   const [current, setCurrent] = useState(1)
@@ -102,7 +104,7 @@ const Store = () => {
   }, [current, sorter])
 
   return (
-    <PageLayout routes={[{ path: '/store', breadcrumbName: '店铺' }]} title="店铺列表">
+    <PageLayout routes={[{ path: '/store', breadcrumbName: t('store') }]} title={t('storeList')}>
       <Card title={<Link to={`/storeForm`}><Button type="primary" icon={<PlusOutlined />}>新建</Button></Link>} bordered={false}>
         <Table
           dataSource={list}

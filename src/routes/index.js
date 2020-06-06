@@ -24,7 +24,7 @@ const routes = [
   { path: '/store', exact: true, name: 'Store', component: Store },
   { path: '/storeForm', exact: true, name: 'StoreForm', component: StoreForm },
   { path: '/editor', exact: true, name: 'Editor', component: Editor, roles: ['admin'] },
-  { path: '/nav/steps', exact: true, name: 'Step', component: Step },
+  { path: '/nav/sub', exact: true, name: 'Step', component: Step },
   { path: '/profile-settings', exact: true, name: 'ProfileSettings', component: ProfileSettings },
 ]
 

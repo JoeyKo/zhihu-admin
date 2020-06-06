@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom'
 import menus from '@/routes/menus'
+import { useTranslation } from 'react-i18next'
 
 // 处理 pathname
 const getOpenKeys = (string, collapsed) => {
@@ -21,6 +22,7 @@ const SideMenu = props => {
         openKeys: [],
         selectedKeys: []
     })
+    const { t } = useTranslation();
 
     let { openKeys, selectedKeys } = state
     let menuProps = props.collapsed ? {} : { openKeys };
@@ -61,7 +63,7 @@ const SideMenu = props => {
         <Menu.Item key={key}>
             <Link to={key}>
                 {icon}
-                <span>{title}</span>
+                <span>{t(title)}</span>
             </Link>
         </Menu.Item>)
     )
@@ -74,7 +76,7 @@ const SideMenu = props => {
                 title={
                     <span>
                         {icon}
-                        <span>{title}</span>
+                        <span>{t(title)}</span>
                     </span>
                 }>
                 {subs &&

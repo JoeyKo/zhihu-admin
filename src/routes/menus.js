@@ -4,12 +4,12 @@ import { HomeOutlined, BookOutlined, EditOutlined, CompassOutlined, ShopOutlined
 const menus = [
   {
     key: '/dashboard',
-    title: '首页',
+    title: 'dashboard',
     icon: <HomeOutlined />,
   },
   {
     key: '/article',
-    title: '文章',
+    title: 'article',
     icon: <BookOutlined />,
   },
   {
@@ -20,27 +20,27 @@ const menus = [
   },
   {
     key: '/store',
-    title: '店铺',
+    title: 'store',
     icon: <ShopOutlined />,
   },
   {
     key: '/storeForm',
     menu: '/store',
-    title: '店铺表单',
+    title: 'storeForm',
     hide: true
   },
   {
     key: '/editor',
-    title: '文本编辑器',
+    title: 'editor',
     icon: <EditOutlined />,
     roles: ['admin']
   },
   {
-    title: '导航',
     key: '/nav',
+    title: 'nav',
     icon: <CompassOutlined />,
     subs: [
-      { title: '步骤条', key: '/nav/steps' }
+      { title: 'subNav', key: '/nav/sub' }
     ]
   },
 ]

@@ -1,12 +1,14 @@
 
 import React from 'react'
 import PageLayout from '@/components/PageLayout'
+import { useTranslation } from 'react-i18next'
 
 const Step = props => {
-
+  const { t } = useTranslation()
+  
   return (
-    <PageLayout title="Step view" routes={[{ breadcrumbName: '导航' }, { breadcrumbName: '步骤条' }]}>
-      <div>step view</div>
+    <PageLayout title={t('subNav')} routes={[{ breadcrumbName: t('nav') }, { breadcrumbName: t('subNav') }]}>
+      
     </PageLayout>
   )
 }

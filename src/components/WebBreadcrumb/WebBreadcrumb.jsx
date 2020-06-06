@@ -2,12 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { PageHeader } from 'antd'
+import { useTranslation } from 'react-i18next'
 import styles from './index.module.scss'
 
 const WebBreadcrumb = props => {
     let { routes, title, subTitle } = props
+    const { t } = useTranslation()
+
     routes = [
-        { path: '/dashboard', breadcrumbName: '首页' },
+        { path: '/dashboard', breadcrumbName: t('dashboard') },
         ...routes
     ]
 
