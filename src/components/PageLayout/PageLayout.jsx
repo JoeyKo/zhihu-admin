@@ -10,7 +10,7 @@ const PageLayout = props => {
   return (
     <Layout>
       <Helmet>
-        <title>Zhihu-{title}</title>
+        <title>Zhihu - {title}</title>
       </Helmet>
       <WebBreadcrumb routes={routes} title={title} subTitle={subTitle}></WebBreadcrumb>
       <div className={styles.content}>
