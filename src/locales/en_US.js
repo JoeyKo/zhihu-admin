@@ -1,4 +1,5 @@
 module.exports = {
+  "systemName": "Management System",
   "dashboard": "Dashborad",
   "article": "Article",
   "articleList": "Article List",
@@ -9,5 +10,16 @@ module.exports = {
   "editor": "Editor",
   "nav": "Nav",
   "subNav": "Sub Nav",
-  "login": "Login"
+  "login": "Login",
+  "settings": "Settings",
+  "logout": "Logout",
+  "totalSales": "Total Sales",
+  "dailySales": "Daily Sales",
+  "visits": "Visits",
+  "dailyVisits": "Daily Visits",
+  "payments": "Payments",
+  "conversionRate": "Conversion Rate",
+  "operationalEffect": "Operational Effect",
+  "woWChange": "WoW Change",
+  "doDChange": "DoD Change",
 }

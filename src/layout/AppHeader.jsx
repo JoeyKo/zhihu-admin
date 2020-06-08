@@ -34,13 +34,13 @@ const AppHeader = props => {
         <Menu>
             <Menu.Item>
                 <span onClick={goProfileSettings}>
-                    <SettingOutlined /> 个人设置
+                    <SettingOutlined /> {t('settings')}
                 </span>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item>
                 <span onClick={loginOut}>
-                    <LogoutOutlined /> 退出登录
+                    <LogoutOutlined /> {t('logout')}
                 </span>
             </Menu.Item>
         </Menu>

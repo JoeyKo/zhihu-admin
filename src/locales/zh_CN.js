@@ -1,4 +1,5 @@
 module.exports = {
+  "systemName": "后台管理系统",
   "dashboard": "控制台",
   "article": "文章",
   "articleList": "文章列表",
@@ -8,5 +9,16 @@ module.exports = {
   "editor": "文本编辑器",
   "nav": "导航",
   "subNav": "二级导航",
-  "login": "请登录"
+  "login": "请登录",
+  "settings": "个人设置",
+  "logout": "退出登录",
+  "totalSales": "总销售额",
+  "dailySales": "日销售额",
+  "visits": "访问量",
+  "dailyVisits": "日访问量",
+  "payments": "支付笔数",
+  "conversionRate": "转化率",
+  "operationalEffect": "运营活动效果",
+  "woWChange": "周同比",
+  "doDChange": "日同比",
 }

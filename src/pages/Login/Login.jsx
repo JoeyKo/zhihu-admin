@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { withRouter, Redirect, Route } from 'react-router-dom';
 import { Layout, Input, Form, Button, Divider, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next'
 import axios from '@/api'
 
 import styles from './index.module.scss'
 
 const Login = props => {
+    const { t } = useTranslation()
     const [loading, setLoading] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false)
     const handleSubmitFinish = async values => {
@@ -37,7 +39,7 @@ const Login = props => {
             <Route exact path="/login">
                 {loggedIn ? <Redirect to="/dashboard" /> : <div className={styles.model}>
                     <div className={styles.loginForm}>
-                        <h3>后台管理系统</h3>
+                        <h3>{t('systemName')}</h3>
                         <Divider />
                         <Form
                             onFinish={handleSubmitFinish}
@@ -64,8 +66,8 @@ const Login = props => {
                             </Form.Item>
                             <Form.Item>
                                 <Button type='primary' htmlType='submit' className={styles.loginFormBtn} loading={loading}>
-                                    登录
-                            </Button>
+                                    {t('login')}
+                                </Button>
                             </Form.Item>
                         </Form>
                     </div>

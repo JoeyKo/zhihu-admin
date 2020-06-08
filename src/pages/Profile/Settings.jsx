@@ -4,6 +4,7 @@ import { Menu, Card, Form, Input, DatePicker, Radio, Button, Upload, message, Av
 import PageLayout from '@/components/PageLayout'
 import { BASEURL } from '@/api/config'
 import { UploadOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import axios from '@/api'
 import { getBase64, beforeUpload } from '@/utils'
 
@@ -20,6 +21,7 @@ const ProfileSettings = () => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const [form] = Form.useForm();
+  const { t } = useTranslation()
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user')) || {}
@@ -62,7 +64,7 @@ const ProfileSettings = () => {
   };
 
   return (
-    <PageLayout routes={[{ path: '/profile-settings', breadcrumbName: '基本设置' }]} title="基本设置">
+    <PageLayout routes={[{ path: '/profile-settings', breadcrumbName: t('settings') }]} title={t('settings')}>
       <Card bordered={false} bodyStyle={{ padding: "16px 0" }}>
         <Row>
           <Col span={4}>

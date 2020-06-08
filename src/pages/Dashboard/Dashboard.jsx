@@ -1,6 +1,8 @@
 import React from 'react'
 import { Layout, Card, Row, Col, Divider } from 'antd'
 import { Chart, Line, Point, Interval, Tooltip } from 'bizcharts';
+import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import styles from './index.module.scss'
 // 数据源
 const data = [
@@ -145,48 +147,48 @@ const data1 = [
 ];
 
 const Dashboard = () => {
-
+    const { t } = useTranslation()
     return (
         <Layout className={styles.container}>
             <Row gutter={24}>
                 <Col span={6} className={styles.cardWrapper}>
                     <Card bodyStyle={{ padding: '20px 24px 8px' }}>
-                        <h2>总销售额</h2>
+                        <h2>{t("totalSales")}</h2>
                         <div className={styles.total}>¥126,560</div>
                         <Divider className={styles.divider} />
                         <div className={styles.footer}>
-                            日销售额 ¥12,234
+                            {t('dailySales')} ¥12,234
                         </div>
                     </Card>
                 </Col>
                 <Col span={6} className={styles.cardWrapper}>
                     <Card bodyStyle={{ padding: '20px 24px 8px' }}>
-                        <h2>访问量</h2>
+                        <h2>{t('visits')}</h2>
                         <div className={styles.total}>8,846</div>
                         <Divider className={styles.divider} />
                         <div className={styles.footer}>
-                            日访问量 1,234
+                            {t('dailyVisits')} 1,234
                         </div>
                     </Card>
                 </Col>
                 <Col span={6} className={styles.cardWrapper}>
                     <Card bodyStyle={{ padding: '20px 24px 8px' }}>
-                        <h2>支付笔数</h2>
+                        <h2>{t('payments')}</h2>
                         <div className={styles.total}>6,560</div>
                         <Divider className={styles.divider} />
                         <div className={styles.footer}>
-                            转化率 60%
+                            {t('conversionRate')} 60%
                         </div>
                     </Card>
                 </Col>
                 <Col span={6} className={styles.cardWrapper}>
                     <Card bodyStyle={{ padding: '20px 24px 8px' }}>
-                        <h2>运营活动效果</h2>
+                        <h2>{t('operationalEffect')}</h2>
                         <div className={styles.total}>78%</div>
                         <Divider className={styles.divider} />
                         <div className={styles.footer}>
-                            <span>周同比 12% </span>
-                            <span>日同比 11%</span>
+                            <span style={{ marginRight: 16 }}>{t('woWChange')} 12% <CaretUpOutlined style={{ color: '#f5222d' }} /></span>
+                            <span>{t('doDChange')}  11% <CaretDownOutlined style={{ color: '#52c41a' }} /></span>
                         </div>
                     </Card>
                 </Col>
