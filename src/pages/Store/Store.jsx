@@ -33,6 +33,7 @@ const Store = () => {
   const columns = [
     {
       title: '图片',
+      width: '10%',
       dataIndex: 'coverImage',
       render: (coverImage, row, index) => {
         return <Avatar shape="square" src={BASEURL + (coverImage && coverImage.path)} />;
@@ -40,10 +41,12 @@ const Store = () => {
     },
     {
       title: '店名',
+      width: '15%',
       dataIndex: 'name',
     },
     {
       title: '地址',
+      width: '20%',
       dataIndex: 'location',
     },
     {

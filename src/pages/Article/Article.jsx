@@ -35,10 +35,12 @@ const Article = () => {
   const columns = [
     {
       title: '标题',
+      width: '15%',
       dataIndex: 'title',
     },
     {
       title: '描述',
+      width: '45%',
       dataIndex: 'description',
     },
     {

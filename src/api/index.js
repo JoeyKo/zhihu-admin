@@ -30,7 +30,7 @@ request.interceptors.response.use(
         if(error.response && error.response.status) {
             switch (error.response.status) {
                 case 401:
-                    message.warning('请登录！')
+                    message.warning('请登录')
                     break
                 case 403:
                     break
@@ -47,8 +47,10 @@ request.interceptors.response.use(
                     });
                     break
                 default:
-                    message.error('其他错误信息')
+                    message.error('其他错误信息😢')
             }
+        } else {
+            message.error('Internal Server Error😢')
         }
         return Promise.reject(error.response)
     }

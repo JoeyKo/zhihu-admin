@@ -4,12 +4,11 @@ import { useTranslation } from 'react-i18next'
 import PageLayout from '@/components/PageLayout'
 import axios from '@/api'
 
+const { TextArea } = Input
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 10 },
 };
-
-
 
 const ArticleForm = props => {
   const { t } = useTranslation()
@@ -57,7 +56,7 @@ const ArticleForm = props => {
             <Input />
           </Form.Item>
           <Form.Item name="description" label="描述" rules={[{ required: true, message: '请输入描述' }]}>
-            <Input />
+            <TextArea autoSize />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
